@@ -1,52 +1,14 @@
 import React from "react";
-import { Table } from "antd";
+import { Col, Row } from "antd";
+import './App.css';
 
-const TableData = ({ data }) => {
+
+const WeatherTable = ({ data }) => {
   const kelvinToCelsius = (kelvin) => {
     return (kelvin - 273.15).toFixed(2);
   };
 
-  const columns = [
-    {
-      title: "Date",
-      dataIndex: "date",
-      key: "date",
-      render: (text) => <span>{new Date(text).toLocaleDateString()}</span>,
-    },
-    {
-      title: "Temperature",
-      children: [
-        {
-          title: "Min",
-          dataIndex: "temp_min",
-          key: "temp_min",
-          render: (text, record) => (
-            <span> {kelvinToCelsius(record.temp_min)} °C </span>
-          ),
-        },
-        {
-          title: "Max",
-          dataIndex: "temp_max",
-          key: "temp_max",
-          render: (text, record) => (
-            <span> {kelvinToCelsius(record.temp_max)} °C</span>
-          ),
-        },
-      ],
-    },
-    {
-      title: "Pressure",
-      dataIndex: "pressure",
-      key: "pressure",
-      render: (text, record) => <span>{record.pressure} hPa</span>,
-    },
-    {
-      title: "Humidity",
-      dataIndex: "humidity",
-      key: "humidity",
-      render: (text, record) => <span>{record.humidity} %</span>,
-    },
-  ];
+  
 
   const dataSource = data.map((record) => ({
     key: record.dt,
@@ -57,7 +19,133 @@ const TableData = ({ data }) => {
     humidity: record.main.humidity,
   }));
 
-  return <Table columns={columns} dataSource={dataSource} pagination={false} />;
+  return (
+    <Row className="rowContent mr-4 ml-4">
+      {dataSource.map((item, index) => (
+        <Col span={24}>
+          <Row>
+            <Col
+              span={24}
+              align="center"
+              style={{
+                border: "1px solid black",
+                padding: "7px",
+                backgroundColor: "#ff6600",
+              }}        
+            >
+              <strong>Date:</strong> {new Date(item.date).toLocaleDateString()}
+            </Col>
+          </Row>
+          <Row>
+            <Col
+              span={24}
+              align="center"
+              style={{
+                border: "1px solid black",
+                padding: "7px",
+                backgroundColor: "#cccccc",
+              }}
+            >
+              <strong>Temprature</strong>
+            </Col>
+          </Row>
+          <Row>
+            <Col
+              span={12}
+              align="center"
+              style={{
+                border: "1px solid black",
+                padding: "7px",
+                backgroundColor: "#cccccc",
+              }}
+            >
+              <strong>Min</strong>
+            </Col>
+            <Col
+              span={12}
+              align="center"
+              style={{
+                border: "1px solid black",
+                padding: "7px",
+                backgroundColor: "#cccccc",
+              }}
+            >
+              <strong>Max</strong>
+            </Col>
+          </Row>
+          <Row>
+            <Col
+              span={12}
+              align="center"
+              style={{
+                border: "1px solid black",
+                padding: "7px",
+                backgroundColor: "#cccccc",
+              }}
+            >
+              {kelvinToCelsius(item.temp_min)} °C
+            </Col>
+            <Col
+              span={12}
+              align="center"
+              style={{
+                border: "1px solid black",
+                padding: "7px",
+                backgroundColor: "#cccccc",
+              }}
+            >
+              {kelvinToCelsius(item.temp_max)} °C
+            </Col>
+          </Row>
+          <Row>
+            <Col
+              span={12}
+              align="center"
+              style={{
+                border: "1px solid black",
+                padding: "7px",
+              }}
+            >
+              <strong>Pressure</strong>
+            </Col>
+            <Col
+              span={12}
+              align="center"
+              style={{
+                border: "1px solid black",
+                padding: "7px",
+              }}
+            >   
+              {item.pressure} hPa
+            </Col>
+          </Row>
+          <Row>
+            <Col
+              span={12}
+              align="center"
+              style={{
+                border: "1px solid black",
+                padding: "7px",
+              }}
+            >
+              <strong>Humidity</strong>
+            </Col>
+            <Col
+              span={12}
+              align="center"
+              style={{
+                border: "1px solid black",
+                padding: "7px",
+              }}
+            >
+              {item.humidity} %
+            </Col>
+          </Row>
+        </Col>
+      ))}
+      
+    </Row>
+  );
 };
 
-export default TableData;
+export default WeatherTable;

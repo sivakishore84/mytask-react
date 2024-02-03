@@ -3,6 +3,7 @@ import { getLatLongfromCity } from './Api';
 import { Row, Col, Input, Button, Spin } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import TableData from './TableData';
+import './App.css';
 
 function App() {
   const [city, setCity] = useState('');
@@ -24,32 +25,33 @@ function App() {
     <>
       <Row
         gutter={16}
-        justify="start"
         align="middle"
         style={{ margin: '20px' }}
       >
-        <Col className='pb-3' xs={24} sm={12} md={6} lg={6}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           <div
             style={{
               color: '#e96e50',
               fontSize: '24px',
-              fontWeight: '500'
+              fontWeight: '500',
+              marginBottom: '5px',
             }}
           >
             Weather in your city
           </div>
         </Col>
-        <Col className='pb-3' xs={24} sm={12} md={4} lg={4}>
+        <Col xs={24} sm={12} md={4} lg={4}>
           <Input
             placeholder="Enter city name"
             value={city}
             onChange={handleInputChange}
             style={{
-              border: '2px solid #e96e50'
+              border: '2px solid #e96e50',
+              marginBottom: '5px',
             }}
           />
         </Col>
-        <Col className='pb-3' xs={24} sm={12} md={4} lg={4}>
+        <Col xs={24} sm={12} md={4} lg={4}>
           <Button
             type="primary"
             onClick={getForecastWeather}
@@ -58,7 +60,8 @@ function App() {
               background: '#e96e50',
               color: '#ffffff',
               fontWeight: '600',
-              marginRight: '10px'
+              marginRight: '10px',
+              marginBottom: '5px',
             }}
           >
             <QuestionCircleOutlined /> Search
@@ -68,7 +71,7 @@ function App() {
         </Col>
       </Row>
       {forecastData.length > 0 && (
-        <div>
+        <div className='tableRow'>
             {
               forecastData.map((tableData, index) => ( 
                 <TableData key={index} data={[tableData]} />

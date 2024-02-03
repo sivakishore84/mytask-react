@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+.tableRow {
+  display: flex;
+}
+
+.tableRow .rowContent {
+  width: 19%;
+  margin: 1%;
+}
+
+@media (max-width: 767px) {
+  .tableRow {
+    display: block;
+  }
+  .tableRow .rowContent {
+    width: 100%;
+    margin-bottom: 6px;
+  }
+}
+
