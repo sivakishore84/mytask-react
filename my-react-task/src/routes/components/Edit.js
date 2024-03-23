@@ -17,16 +17,22 @@ const Edit = (props) => {
     const [name, setName] = useState(selectedRecord && selectedRecord.name);
     const [email, setEmail] = useState(selectedRecord && selectedRecord.email);
     const [validForm, setValidForm] = useState(true);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const handleOk = () => {
         if (name && email) {
             setValidForm(true);
-            submit(
-                {
-                    id: selectedRecord && selectedRecord.id,
-                    name,
-                    email,
-                })
+            if (!emailRegex.test(email)) {
+                setValidForm(false);
+            } else {
+                submit(
+                    {
+                        id: selectedRecord && selectedRecord.id,
+                        name,
+                        email,
+                    })
+            }
+
         }
         else {
             setValidForm(false);
